@@ -32,14 +32,4 @@ public class TicketController {
     public ResponseEntity<List<TicketEntity>> getAllTicketArchival() {
         return ResponseEntity.ok((ticketService.getAllTicketsArchival()));
     }
-    @PostMapping
-    public ResponseEntity<TicketEntity> createTicket(
-            @RequestBody TicketEntity ticketEntity,
-            @AuthenticationPrincipal UserEntity user 
-    ) {
-        ticketEntity.setUser(user);
-        TicketEntity savedTicket = ticketService.createTicket(ticketEntity);
-        return ResponseEntity.ok(savedTicket);
-    }
-
 }
