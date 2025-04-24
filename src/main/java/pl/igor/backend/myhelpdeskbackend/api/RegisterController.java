@@ -1,6 +1,5 @@
 package pl.igor.backend.myhelpdeskbackend.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,9 +12,11 @@ import pl.igor.backend.myhelpdeskbackend.service.RegisterService;
 @RestController
 @RequestMapping("/api/v1")
 public class RegisterController {
-
-    @Autowired
     private RegisterService registerService;
+
+    public RegisterController(RegisterService registerService) {
+        this.registerService = registerService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(
