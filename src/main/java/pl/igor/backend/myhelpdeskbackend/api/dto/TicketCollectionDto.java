@@ -2,10 +2,10 @@ package pl.igor.backend.myhelpdeskbackend.api.dto;
 
 import java.util.List;
 
-public class ticketCollectionDto {
+public class TicketCollectionDto {
     private List<TicketDto> tickets;
 
-    public ticketCollectionDto(List<TicketDto> tickets) {
+    public TicketCollectionDto(List<TicketDto> tickets) {
         this.tickets = tickets;
     }
 
@@ -16,4 +16,6 @@ public class ticketCollectionDto {
     public void setTickets(List<TicketDto> tickets) {
         this.tickets = tickets;
     }
+
+
 }

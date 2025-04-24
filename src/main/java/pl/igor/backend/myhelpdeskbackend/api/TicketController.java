@@ -2,6 +2,7 @@ package pl.igor.backend.myhelpdeskbackend.api;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.igor.backend.myhelpdeskbackend.api.dto.TicketDto;
 import pl.igor.backend.myhelpdeskbackend.model.TicketEntity;
 import pl.igor.backend.myhelpdeskbackend.service.TicketService;
 
@@ -17,9 +18,10 @@ public class TicketController {
     }
 
     @PostMapping
-    public ResponseEntity<TicketEntity> create(@RequestBody TicketEntity ticketEntity) {
+    public ResponseEntity<TicketDto> create(@RequestBody TicketEntity ticketEntity) {
         TicketEntity savedTicketEntity = ticketService.createTicket(ticketEntity);
         return ResponseEntity.ok(savedTicketEntity);
+
     }
 
     @GetMapping("/active")
