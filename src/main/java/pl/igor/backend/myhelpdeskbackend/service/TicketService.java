@@ -2,6 +2,8 @@ package pl.igor.backend.myhelpdeskbackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.igor.backend.myhelpdeskbackend.api.dto.TicketAddDto;
+import pl.igor.backend.myhelpdeskbackend.api.dto.TicketDto;
 import pl.igor.backend.myhelpdeskbackend.model.TicketEntity;
 import pl.igor.backend.myhelpdeskbackend.repository.TicketRepository;
 
@@ -14,9 +16,12 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
-    public TicketEntity createTicket(TicketEntity ticked){
-        return ticketRepository.save(ticked);
+    public TicketDto createTicket(TicketAddDto ticketAddDto){
+    TicketEntity ticketEntity = new TicketEntity(null, ticketAddDto.getTitle(), ticketAddDto.getDescription(), ticketAddDto.getContact(), "active");
+    ticketEntity = ticketRepository.save(ticketEntity);
+
     }
+
     public List<TicketEntity> getAllTicketsActive(){
         return ticketRepository.findAllActive();
     }

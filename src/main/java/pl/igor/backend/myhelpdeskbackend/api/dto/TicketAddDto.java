@@ -5,6 +5,9 @@ public class TicketAddDto {
     private String description;
     private String contact;
 
+    public TicketAddDto() {
+    }
+
     public TicketAddDto(String title, String contact, String description) {
         this.title = title;
         this.contact = contact;

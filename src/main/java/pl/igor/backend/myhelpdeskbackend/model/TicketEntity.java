@@ -16,20 +16,29 @@ public class TicketEntity {
     @Column(name = "description")
     private String description;
 
-    @Column (name = "status")
+    @Column(name = "status")
     private String status;
 
+    @Column(name = "contact")
+    private String contact;
 
     public TicketEntity() {
     }
 
-    public TicketEntity(String title, String description) {
+    public TicketEntity(Long id, String title, String status, String contact, String description) {
+        this.id = id;
         this.title = title;
+        this.status = status;
+        this.contact = contact;
         this.description = description;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -46,5 +55,21 @@ public class TicketEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }
