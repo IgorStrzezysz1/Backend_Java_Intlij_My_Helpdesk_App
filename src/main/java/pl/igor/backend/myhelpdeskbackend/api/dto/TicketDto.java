@@ -10,6 +10,8 @@ public class TicketDto {
 
     private String status;
 
+    private String contact;
+
     public Long getId() {
         return id;
     }
@@ -42,10 +44,19 @@ public class TicketDto {
         this.status = status;
     }
 
-    public TicketDto(Long id, String title, String description, String status) {
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public TicketDto(Long id, String title, String description, String status, String contact) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = status;
+        this.contact = contact;
     }
 }
