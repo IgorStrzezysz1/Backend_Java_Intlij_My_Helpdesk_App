@@ -9,6 +9,8 @@ import pl.igor.backend.myhelpdeskbackend.model.TicketEntity;
 import pl.igor.backend.myhelpdeskbackend.repository.TicketRepository;
 
 import java.util.List;
+import java.util.stream.Stream;
+
 @Service
 public class TicketService {
     private TicketRepository ticketRepository;
@@ -25,9 +27,12 @@ public class TicketService {
     return ticketMapper.mapToTicketDto(ticketEntity);
     }
 
-    public List<TicketEntity> getAllTicketsActive(){
-        return ticketRepository.findAllActive();
-    }
+    public List<TicketDto> getAllTicketsActive(){
+        List<TicketEntity>activeTickets = ticketRepository.findAllActive();
+        return activeTickets.stream()
+                .map(ticketMapper::mapToTicketDto).toList();
+
+    } //nie ticketEntity a ticketDto. Mamy listę List<EntityDto> ic chcemy to przemapować na List<TicketDto>
 
     public List<TicketEntity> getAllTicketsArchival(){
         return ticketRepository.findAllArchival();

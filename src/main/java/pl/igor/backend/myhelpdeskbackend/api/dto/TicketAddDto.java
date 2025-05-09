@@ -38,3 +38,5 @@ public class TicketAddDto {
         this.contact = contact;
     }
 }
+
+//klasa Data Transfer Object

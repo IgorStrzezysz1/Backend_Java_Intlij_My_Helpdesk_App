@@ -9,7 +9,6 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<TicketEntity, Long> {
     @Query("select t from TicketEntity t where t.status = 'active'")
     List<TicketEntity> findAllActive();
-
     @Query("select t from TicketEntity t where t.status = 'archival'")
     List<TicketEntity> findAllArchival();
 }

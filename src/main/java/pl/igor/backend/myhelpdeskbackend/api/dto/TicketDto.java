@@ -1,5 +1,6 @@
 package pl.igor.backend.myhelpdeskbackend.api.dto;
 
+
 public class TicketDto {
 
     private Long id;
@@ -60,3 +61,4 @@ public class TicketDto {
         this.contact = contact;
     }
 }
+//klasa Data Transfer Object

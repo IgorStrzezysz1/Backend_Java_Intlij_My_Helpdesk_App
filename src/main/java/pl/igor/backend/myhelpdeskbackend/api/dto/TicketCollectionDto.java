@@ -19,3 +19,4 @@ public class TicketCollectionDto {
 
 
 }
+//klasa Data Transfer Object
