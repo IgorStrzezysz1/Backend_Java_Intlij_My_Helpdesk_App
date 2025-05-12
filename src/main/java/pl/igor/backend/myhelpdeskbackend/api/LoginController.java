@@ -7,7 +7,6 @@ import pl.igor.backend.myhelpdeskbackend.service.LoginService;
 @RequestMapping("/api/v1")
 public class LoginController {
     private LoginService loginService;
-
     public LoginController(LoginService loginService) {
         this.loginService = loginService;
     }

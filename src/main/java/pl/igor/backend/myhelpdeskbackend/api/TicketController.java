@@ -26,7 +26,7 @@ public class TicketController {
     }
 
     @GetMapping("/active")
-    public ResponseEntity<List<TicketEntity>> getAllTicketsActive() {
+    public ResponseEntity<List<TicketDto>> getAllTicketsActive() {
         return ResponseEntity.ok((ticketService.getAllTicketsActive()));
     }
 
