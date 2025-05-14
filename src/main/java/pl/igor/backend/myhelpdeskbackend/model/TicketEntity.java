@@ -3,23 +3,16 @@ package pl.igor.backend.myhelpdeskbackend.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "tickets")
 public class TicketEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "title")
     private String title;
-
-    @Column(name = "description")
     private String description;
-
-    @Column(name = "status")
     private String status;
-
-    @Column(name = "contact")
     private String contact;
 
     public TicketEntity() {
@@ -32,6 +25,8 @@ public class TicketEntity {
         this.contact = contact;
         this.description = description;
     }
+
+    // gettery i settery
 
     public Long getId() {
         return id;
