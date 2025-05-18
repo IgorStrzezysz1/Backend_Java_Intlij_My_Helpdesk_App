@@ -31,7 +31,7 @@ public class TicketController {
     }
 
     @GetMapping("/archival")
-    public ResponseEntity<List<TicketEntity>> getAllTicketArchival() {
+    public ResponseEntity<List<TicketDto>> getAllTicketArchival() {
         return ResponseEntity.ok((ticketService.getAllTicketsArchival()));
     }
 }
