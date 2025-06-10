@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.igor.backend.myhelpdeskbackend.api.dto.TicketAddDto;
 import pl.igor.backend.myhelpdeskbackend.api.dto.TicketDto;
-import pl.igor.backend.myhelpdeskbackend.model.TicketEntity;
 import pl.igor.backend.myhelpdeskbackend.service.TicketService;
 
 import java.util.List;
@@ -12,7 +11,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/tickets")
 public class TicketController {
-    private TicketService ticketService;
+
+    private final TicketService ticketService;
 
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
@@ -20,18 +20,17 @@ public class TicketController {
 
     @PostMapping
     public ResponseEntity<TicketDto> create(@RequestBody TicketAddDto ticketAddDto) {
-        TicketDto ticket= ticketService.createTicket(ticketAddDto);
+        TicketDto ticket = ticketService.createTicket(ticketAddDto);
         return ResponseEntity.ok(ticket);
-
     }
 
     @GetMapping("/active")
     public ResponseEntity<List<TicketDto>> getAllTicketsActive() {
-        return ResponseEntity.ok((ticketService.getAllTicketsActive()));
+        return ResponseEntity.ok(ticketService.getAllTicketsActive());
     }
 
     @GetMapping("/archival")
-    public ResponseEntity<List<TicketDto>> getAllTicketArchival() {
-        return ResponseEntity.ok((ticketService.getAllTicketsArchival()));
+    public ResponseEntity<List<TicketDto>> getAllTicketsArchival() {
+        return ResponseEntity.ok(ticketService.getAllTicketsArchival());
     }
 }
