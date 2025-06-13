@@ -22,7 +22,7 @@ public class TicketService {
     }
 
     public TicketDto createTicket(TicketAddDto ticketAddDto){
-        TicketEntity ticketEntity = new TicketEntity(null, ticketAddDto.getTitle(), ticketAddDto.getDescription(), ticketAddDto.getContact(), "active");
+        TicketEntity ticketEntity = new TicketEntity(null, ticketAddDto.getTitle(), "active", ticketAddDto.getDescription(), ticketAddDto.getContact());
         ticketEntity = ticketRepository.save(ticketEntity);
         return ticketMapper.mapToTicketDto(ticketEntity);
     }
@@ -41,14 +41,19 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
-    public TicketDto updateTicket(Long id, TicketAddDto dto) {
+    public TicketDto updateTicket(Long id, TicketDto dto) {
         TicketEntity ticket = ticketRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ticket not found"));
-
-        ticket.setTitle(dto.getTitle());
-        ticket.setDescription(dto.getDescription());
+        if (dto.getTitle() != null) {
+            ticket.setTitle(dto.getTitle());
+        }
+        if (dto.getDescription() != null) {
+            ticket.setDescription(dto.getDescription());
+        }
 
         ticketRepository.save(ticket);
         return ticketMapper.mapToTicketDto(ticket);
     }
-}
+
+    }
+

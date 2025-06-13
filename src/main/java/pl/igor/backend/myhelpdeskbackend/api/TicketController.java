@@ -33,4 +33,13 @@ public class TicketController {
     public ResponseEntity<List<TicketDto>> getAllTicketsArchival() {
         return ResponseEntity.ok(ticketService.getAllTicketsArchival());
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<TicketDto> updateTicket(@PathVariable Long id, @RequestBody TicketDto ticketDto) {
+        TicketDto updated = ticketService.updateTicket(id, ticketDto);
+        return ResponseEntity.ok(updated);
+    }
+
+
+
+
 }
