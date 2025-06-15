@@ -50,6 +50,9 @@ public class TicketService {
         if (dto.getDescription() != null) {
             ticket.setDescription(dto.getDescription());
         }
+        if(dto.getStatus() !=null){
+            ticket.setStatus(dto.getStatus());
+        }
 
         ticketRepository.save(ticket);
         return ticketMapper.mapToTicketDto(ticket);
