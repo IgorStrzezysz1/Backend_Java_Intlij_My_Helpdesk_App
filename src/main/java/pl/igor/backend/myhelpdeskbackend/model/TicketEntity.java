@@ -26,8 +26,6 @@ public class TicketEntity {
         this.description = description;
     }
 
-    // gettery i settery
-
     public Long getId() {
         return id;
     }
