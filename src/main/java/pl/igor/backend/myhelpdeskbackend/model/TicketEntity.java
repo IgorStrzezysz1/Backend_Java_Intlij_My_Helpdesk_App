@@ -1,22 +1,21 @@
-package pl.igor.backend.myhelpdeskbackend.model;
+package pl.igor.backend.myhelpdeskbackend.model; // Pakiet – encje (czyli klasy reprezentujące tabele w bazie danych) znajdują się w folderze 'model'.
 
-import jakarta.persistence.*;
+import jakarta.persistence.*; // Import adnotacji JPA, m.in. @Entity, @Id, @Table, @GeneratedValue.
 
-@Entity
-@Table(name = "tickets")
-public class TicketEntity {
+@Entity // Adnotacja – informuje, że klasa to encja JPA (czyli odpowiada tabeli w bazie danych).
+@Table(name = "tickets") // Adnotacja – mówi, że ta encja odwzorowuje się na tabelę "tickets" w bazie.
+public class TicketEntity { // Klasa reprezentująca zgłoszenie (ticket), zapisywane w bazie danych.
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id // Adnotacja – oznacza pole jako klucz główny (PRIMARY KEY).
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID będzie automatycznie generowane przez bazę (np. auto-increment).
+    private Long id; // Unikalny identyfikator zgłoszenia.
 
-    private String title;
-    private String description;
-    private String status;
-    private String contact;
+    private String title; // Tytuł zgłoszenia (np. "Awaria drukarki").
+    private String description; // Szczegółowy opis problemu.
+    private String status; // Status zgłoszenia (np. NEW, IN_PROGRESS, DONE).
+    private String contact; // Dane kontaktowe osoby zgłaszającej (np. e-mail lub telefon).
 
-    public TicketEntity() {
-    }
+    public TicketEntity() { } // Pusty konstruktor – wymagany przez JPA.
 
     public TicketEntity(Long id, String title, String status, String contact, String description) {
         this.id = id;
@@ -26,43 +25,18 @@ public class TicketEntity {
         this.description = description;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; } // Getter – zwraca ID.
+    public void setId(Long id) { this.id = id; } // Setter – ustawia ID.
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getTitle() { return title; } // Getter – zwraca tytuł.
+    public void setTitle(String title) { this.title = title; } // Setter – ustawia tytuł.
 
-    public String getTitle() {
-        return title;
-    }
+    public String getDescription() { return description; } // Getter – zwraca opis.
+    public void setDescription(String description) { this.description = description; } // Setter – ustawia opis.
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public String getStatus() { return status; } // Getter – zwraca status zgłoszenia.
+    public void setStatus(String status) { this.status = status; } // Setter – ustawia status zgłoszenia.
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
+    public String getContact() { return contact; } // Getter – zwraca dane kontaktowe.
+    public void setContact(String contact) { this.contact = contact; } // Setter – ustawia dane kontaktowe.
 }

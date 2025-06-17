@@ -1,37 +1,40 @@
-package pl.igor.backend.myhelpdeskbackend.service;
+package pl.igor.backend.myhelpdeskbackend.service; // Pakiet – klasa znajduje się w folderze 'service', razem z logiką aplikacji.
 
-import org.aspectj.weaver.patterns.IToken;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import pl.igor.backend.myhelpdeskbackend.api.dto.LoginDto;
-import pl.igor.backend.myhelpdeskbackend.model.UserEntity;
-import pl.igor.backend.myhelpdeskbackend.repository.UserRepository;
+import io.jsonwebtoken.Jwts; // Klasa z biblioteki JJWT – służy do tworzenia i czytania tokenów JWT.
+import io.jsonwebtoken.SignatureAlgorithm; // Określa algorytm podpisu JWT (np. HS256).
+import io.jsonwebtoken.security.Keys; // Klasa pomocnicza – generuje bezpieczne klucze.
+import org.springframework.stereotype.Service; // Adnotacja – informuje Springa, że to komponent serwisowy.
 
-import java.util.Optional;
+import java.security.Key; // Typ klucza szyfrującego – używany do podpisywania i weryfikacji tokenu.
+import java.util.Date; // Klasa Java – do obsługi dat (wydania i wygaśnięcia tokenu).
 
-@Service
-public class LoginService {
+@Service // Adnotacja – ta klasa jest zarządzana przez Springa i może być automatycznie wstrzykiwana jako zależność.
+public class JwtService { // Klasa odpowiedzialna za tworzenie i sprawdzanie tokenów JWT (JSON Web Token).
 
-    @Autowired
-    private UserRepository userRepository;
+    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // Prywatny klucz – generowany jednorazowo przy uruchomieniu aplikacji. Używany do podpisywania tokenów.
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public String generateToken(String email) {
+        // Metoda – generuje nowy token JWT na podstawie e-maila użytkownika.
 
-    @Autowired
-    private JwtService jwtService;
-
-    public LoginDto loginUser(String email, String password) {
-        return userRepository.findByEmail(email)
-                .filter(user -> passwordEncoder.matches(password, user.getPassword()))
-                .map(user -> jwtService.generateToken(user.getEmail()))
-                .map(token->new LoginDto(token))
-                .orElse(null);
-
+        return Jwts.builder() // Tworzy nowy token JWT...
+                .setSubject(email) // Ustawia e-mail jako „subject” – główną wartość identyfikującą użytkownika.
+                .setIssuedAt(new Date(System.currentTimeMillis())) // Ustawia datę wygenerowania tokenu (obecna chwila).
+                .setExpiration(new Date(System.currentTimeMillis() + 900000)) // Ustawia datę wygaśnięcia – po 15 minutach.
+                .signWith(key) // Podpisuje token wcześniej wygenerowanym kluczem.
+                .compact(); // Zamyka budowanie tokena i zwraca go jako String.
     }
-    public boolean validateCredentials(String email, String password) {
-        Optional<UserEntity> user = userRepository.findByEmail(email);
-        return user.isPresent() && passwordEncoder.matches(password, user.get().getPassword());
+
+    public boolean checkToken(String token) {
+        // Metoda – sprawdza, czy token jest poprawny i został poprawnie podpisany.
+
+        try {
+            Jwts.parserBuilder() // Buduje parser JWT...
+                    .setSigningKey(key).build() // Ustawia klucz do weryfikacji podpisu tokena.
+                    .parseClaimsJws(token); // Próbuje sparsować token – jeśli się uda, to znaczy że jest poprawny.
+            return true; // Token jest poprawny.
+        } catch (Exception e) {
+            return false; // Token jest niepoprawny lub wygasł.
+        }
     }
 }
